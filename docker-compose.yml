@@ -40,7 +40,7 @@ services:
       test_composer
     build:
       context: ./docker/php-fpm
-    command: bash -c 'composer install;'
+    command: bash -c 'composer update;'
     volumes:
       - ./app:/app
 

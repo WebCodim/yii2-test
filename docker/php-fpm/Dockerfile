@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 #ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
@@ -44,7 +44,7 @@ RUN apt-get update && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 
-ARG X_LEGACY_GD_LIB=1
+ARG X_LEGACY_GD_LIB=0
 RUN if [ $X_LEGACY_GD_LIB = 1 ]; then \
         docker-php-ext-configure gd \
                 --with-freetype-dir=/usr/include/ \
