@@ -1,0 +1,49 @@
+version: '3.1'
+services:
+
+  test_nginx:
+    container_name:
+      test_nginx
+    build:
+      context: ./docker/nginx
+    ports:
+      - 81:80
+    links:
+      - test_php
+    volumes:
+      - ./app:/app
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+  test_php:
+    container_name:
+      test_php
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./app:/app
+
+  test_db:
+    container_name:
+      test_db
+    build:
+      context: ./docker/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+    ports:
+      - 3307:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  test_composer:
+    container_name:
+      test_composer
+    build:
+      context: ./docker/php-fpm
+    command: bash -c 'composer install;'
+    volumes:
+      - ./app:/app
+
+volumes:
+  dbdata:
+    driver: local
