@@ -22,11 +22,11 @@ services:
     volumes:
       - ./app:/app
 
-  test_db:
+  test_mysql:
     container_name:
-      test_db
+      test_mysql
     build:
-      context: ./docker/db
+      context: ./docker/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test
@@ -34,6 +34,21 @@ services:
       - 3307:3306
     volumes:
       - dbdata:/var/lib/mysql
+      
+  test_postgres:
+    container_name:
+      test_postgres
+    build:
+      context: ./docker/postgres
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5433:5432
+    volumes:
+      - .:/var/lib/postgresql/data
 
   test_composer:
     container_name:

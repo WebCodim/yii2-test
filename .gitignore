@@ -2,4 +2,6 @@
 .idea
 # composer vendor dir
 /app/vendor/
+# postgres data
+pgdata
 
