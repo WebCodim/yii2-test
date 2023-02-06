@@ -50,6 +50,25 @@ services:
     volumes:
       - .:/var/lib/postgresql/data
 
+  test_redis:
+    container_name:
+      test_redis
+    build:
+      context: ./docker/redis
+    ports:
+      - "6380:6379"
+    command: redis-server --requirepass bd2bd2bd2
+    volumes:
+      - ./docker/redis:/data
+
+  test_memcached:
+    container_name:
+      test_memcached
+    build:
+      context: ./docker/memcached
+    ports:
+      - "11212:11211"
+
   test_composer:
     container_name:
       test_composer
