@@ -57,7 +57,7 @@ services:
       context: ./docker/redis
     ports:
       - "6380:6379"
-    command: redis-server --requirepass bd2bd2bd2
+    command: redis-server --requirepass redis-pass
     volumes:
       - ./docker/redis:/data
 
